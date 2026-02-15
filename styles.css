@@ -399,28 +399,30 @@ h1 {
 .item-content {
     display: flex;
     gap: var(--spacing-md);
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+    /* Important for text wrapping */
 }
 
-.item-image {
-    width: 50px;
-    height: 75px;
-    /* Poster aspect ratio */
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-    background: var(--surface-dark);
-}
-
+.item-image,
 .item-image-placeholder {
-    width: 50px;
-    height: 75px;
-    border-radius: var(--radius-sm);
-    background: var(--surface-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
+    width: 48px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #000;
+}
+
+width: 50px;
+height: 75px;
+border-radius: var(--radius-sm);
+background: var(--surface-dark);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text-muted);
 }
 
 /* Item Actions */
@@ -454,6 +456,41 @@ h1 {
     transition: all 0.2s ease;
     width: 100px;
     justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .list-item {
+        align-items: flex-start;
+    }
+
+    .item-actions-right {
+        padding-left: 8px;
+        gap: 8px;
+    }
+
+    .status-btn,
+    .owned-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border-radius: 99px;
+    }
+
+    .status-btn span,
+    .owned-btn span {
+        display: none;
+        /* Icon only on mobile */
+    }
+
+    .status-btn i,
+    .owned-btn i {
+        font-size: 18px;
+    }
+
+    .item-title {
+        font-size: 0.95rem;
+        line-height: 1.3;
+    }
 }
 
 .owned-btn {
@@ -499,11 +536,12 @@ h1 {
 /* List Item States */
 .list-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-sm);
+    padding: 16px;
+    margin-bottom: 8px;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    gap: 12px;
 }
 
 .item-text-wrapper {
@@ -913,11 +951,11 @@ h1 {
 
 /* --- Rich Item Grid Layout --- */
 .rich-grid {
-    display: grid;
-    grid-template-columns: 48px 1fr auto;
-    align-items: center;
+    display: flex;
     gap: 16px;
-    width: 100%;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
 }
 
 @media (max-width: 600px) {
