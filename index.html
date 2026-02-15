@@ -943,13 +943,11 @@
                         {!activeList ? (
                             /* --- DASHBOARD VIEW --- */
                             <div className="dashboard-view">
-                                <header>
-                                    <h1>
-                                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px', verticalAlign: 'middle' }}>
-                                            <div style={{ transform: 'scale(1.5)' }}><CuratorLogo /></div>
-                                            <span>Welcome to Curator</span>
-                                        </div>
-                                    </h1>
+                                <header className="dashboard-intro">
+                                    <div className="dashboard-logo-large">
+                                        <CuratorLogo />
+                                    </div>
+                                    <h1>Welcome to Curator</h1>
                                     <p>Organize your life's collections. Select a list or start something new.</p>
                                 </header>
                                 <div className="dashboard-grid">
