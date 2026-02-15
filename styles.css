@@ -415,16 +415,6 @@ h1 {
     background: #000;
 }
 
-width: 50px;
-height: 75px;
-border-radius: var(--radius-sm);
-background: var(--surface-dark);
-display: flex;
-align-items: center;
-justify-content: center;
-color: var(--text-muted);
-}
-
 /* Item Actions */
 .item-actions-right {
     display: flex;
