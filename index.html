@@ -1184,18 +1184,10 @@
 
                                                         <div className="item-text-wrapper">
                                                             <div className="item-title">{item.content}</div>
-                                                        </div>
-
-                                                        <div className="meta-col year">
-                                                            {item.metadata.year ? <span className="meta-badge">{item.metadata.year}</span> : null}
-                                                        </div>
-
-                                                        <div className="meta-col creator">
-                                                            {item.metadata.creator ? <span className="meta-creator">{item.metadata.creator}</span> : null}
-                                                        </div>
-
-                                                        <div className="meta-col owned">
-                                                            {/* Moved to actions */}
+                                                            <div className="item-meta-row">
+                                                                {item.metadata.year && <span className="meta-badge">{item.metadata.year}</span>}
+                                                                {item.metadata.creator && <span className="meta-creator">{item.metadata.creator}</span>}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ) : (

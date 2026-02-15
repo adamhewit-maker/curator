@@ -914,10 +914,28 @@ h1 {
 /* --- Rich Item Grid Layout --- */
 .rich-grid {
     display: grid;
-    grid-template-columns: 48px 1fr auto auto auto;
+    grid-template-columns: 48px 1fr auto;
     align-items: center;
     gap: 16px;
     width: 100%;
+}
+
+@media (max-width: 600px) {
+    .rich-grid {
+        grid-template-columns: 48px 1fr;
+        gap: 12px;
+    }
+
+    .rich-grid .item-text-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .rich-grid .meta-col {
+        display: inline-flex;
+        margin-top: 4px;
+    }
 }
 
 .item-image {
@@ -942,6 +960,13 @@ h1 {
 .meta-col {
     display: flex;
     align-items: center;
+}
+
+.item-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .meta-badge {
