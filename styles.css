@@ -416,36 +416,49 @@ h1 {
 }
 
 /* Item Actions */
-.item-actions-right {
+/* Inline Status Checkbox */
+.item-status-row {
+    margin-top: 8px;
     display: flex;
     align-items: center;
+}
+
+.status-checkbox {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 4px;
+    margin-left: -4px;
+    /* Align with text padding */
+    transition: color 0.2s;
+}
+
+.status-checkbox:hover {
+    color: var(--text-primary);
+}
+
+.status-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.list-item.completed .status-checkbox {
+    color: var(--primary);
+}
+
+/* Item Actions */
+.item-actions-right {
+    display: flex;
+    align-items: flex-start;
     gap: 12px;
     margin-left: auto;
     padding-left: 12px;
-}
-
-.status-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: flex-end;
-}
-
-.status-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: transparent;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100px;
-    justify-content: center;
 }
 
 @media (max-width: 600px) {
@@ -458,7 +471,6 @@ h1 {
         gap: 8px;
     }
 
-    .status-btn,
     .owned-btn {
         width: 32px;
         height: 32px;
@@ -466,13 +478,11 @@ h1 {
         border-radius: 99px;
     }
 
-    .status-btn span,
     .owned-btn span {
         display: none;
         /* Icon only on mobile */
     }
 
-    .status-btn i,
     .owned-btn i {
         font-size: 18px;
     }

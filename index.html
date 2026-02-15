@@ -1188,59 +1188,70 @@
                                                                 {item.metadata.year && <span className="meta-badge">{item.metadata.year}</span>}
                                                                 {item.metadata.creator && <span className="meta-creator">{item.metadata.creator}</span>}
                                                             </div>
+                                                            <div className="item-status-row" style={{ display: 'flex', gap: '16px' }}>
+                                                                <label className="status-checkbox">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={item.completed}
+                                                                        onChange={() => handleToggleComplete(item.id)}
+                                                                    />
+                                                                    <span>{actionLabel}</span>
+                                                                </label>
+                                                                {activeList.category !== 'movie' && (
+                                                                    <label className="status-checkbox">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={item.metadata?.owned}
+                                                                            onChange={(e) => handleToggleOwned(e, item.id)}
+                                                                        />
+                                                                        <span>Owned</span>
+                                                                    </label>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <div className="item-content">
                                                         <div className="item-text-wrapper">
                                                             <div className="item-title">{item.content}</div>
+                                                            <div className="item-status-row">
+                                                                <label className="status-checkbox">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={item.completed}
+                                                                        onChange={() => handleToggleComplete(item.id)}
+                                                                    />
+                                                                    <span>Done</span>
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
 
                                                 {!isSelectionMode && (
                                                     <div className="item-actions-right">
-                                                        <div className="status-stack">
-                                                            <button
-                                                                className={`status-btn ${item.completed ? 'active' : ''}`}
-                                                                onClick={() => handleToggleComplete(item.id)}
-                                                            >
-                                                                {item.completed && <CheckIcon />} <span>{actionLabel}</span>
-                                                            </button>
-
-                                                            {!item.completed && (
-                                                                <>
-                                                                    <button className="magic-item-btn" onClick={() => handleItemMagic(item)} title="Auto-find Image & Info">
-                                                                        <MagicIcon />
-                                                                    </button>
-                                                                    <button className="icon-btn small" onClick={() => {
-                                                                        const url = prompt("Paste Image URL:");
-                                                                        if (url) {
-                                                                            const updated = activeList.items.map(i => i.id === item.id ? { ...i, type: 'rich', metadata: { ...i.metadata, image: url } } : i);
-                                                                            updateActiveList(updated);
-                                                                        }
-                                                                    }} title="Set Image URL Manualy">
-                                                                        <LinkIcon />
-                                                                    </button>
-                                                                    <button className="icon-btn small" onClick={() => {
-                                                                        setSearchModalItem(item);
-                                                                        setSearchModalQuery(item.content);
-                                                                    }} title="Search Comics.org with Issue #">
-                                                                        <i className="ph ph-magnifying-glass" />
-                                                                    </button>
-                                                                </>
-                                                            )}
-
-                                                            {item.type === 'rich' && activeList.category !== 'movie' && (
-                                                                <button
-                                                                    className={`owned-btn ${item.metadata?.owned ? 'owned' : ''}`}
-                                                                    onClick={(e) => handleToggleOwned(e, item.id)}
-                                                                >
-                                                                    <i className={item.metadata?.owned ? "ph-fill ph-check-circle" : "ph ph-circle"} />
-                                                                    <span>Owned</span>
+                                                        {!item.completed && (
+                                                            <div style={{ display: 'flex', gap: '4px' }}>
+                                                                <button className="magic-item-btn" onClick={() => handleItemMagic(item)} title="Auto-find Image & Info">
+                                                                    <MagicIcon />
                                                                 </button>
-                                                            )}
-                                                        </div>
+                                                                <button className="icon-btn small" onClick={() => {
+                                                                    const url = prompt("Paste Image URL:");
+                                                                    if (url) {
+                                                                        const updated = activeList.items.map(i => i.id === item.id ? { ...i, type: 'rich', metadata: { ...i.metadata, image: url } } : i);
+                                                                        updateActiveList(updated);
+                                                                    }
+                                                                }} title="Set Image URL Manualy">
+                                                                    <LinkIcon />
+                                                                </button>
+                                                                <button className="icon-btn small" onClick={() => {
+                                                                    setSearchModalItem(item);
+                                                                    setSearchModalQuery(item.content);
+                                                                }} title="Search Comics.org with Issue #">
+                                                                    <i className="ph ph-magnifying-glass" />
+                                                                </button>
+                                                            </div>
+                                                        )}
                                                         <button className="delete-btn" onClick={() => handleDeleteItem(item.id)}><TrashIcon /></button>
                                                     </div>
                                                 )}
