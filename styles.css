@@ -727,8 +727,12 @@ h1 {
 }
 
 .dashboard-logo-large {
-    transform: scale(3) translateY(-10px);
-    margin-bottom: 32px;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dashboard-view p {
