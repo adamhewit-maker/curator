@@ -49,10 +49,27 @@
         const CheckIcon = () => <i className="ph ph-check" style={{ fontSize: 20 }} />;
         const SpinnerIcon = () => <i className="ph ph-spinner" style={{ fontSize: 20, animation: 'spin 1s linear infinite' }} />;
 
-        // Missing Icons for Dashboard
-        const MusicNoteIcon = () => <i className="ph ph-music-note" style={{ fontSize: 24 }} />;
-        const BookIcon = () => <i className="ph ph-book" style={{ fontSize: 24 }} />;
-        const FilmStripIcon = () => <i className="ph ph-film-strip" style={{ fontSize: 24 }} />;
+        // --- Category Icons ---
+        const MusicNoteIcon = () => <i className="ph ph-music-note" />;
+        const BookIcon = () => <i className="ph ph-book" />;
+        const FilmStripIcon = () => <i className="ph ph-film-strip" />;
+        const GameControllerIcon = () => <i className="ph ph-game-controller" />;
+        const ForkKnifeIcon = () => <i className="ph ph-fork-knife" />;
+        const MapPinIcon = () => <i className="ph ph-map-pin" />;
+        const ListIcon = () => <i className="ph ph-list" />;
+        const PlusIcon = () => <i className="ph ph-plus" />;
+        const ImageIcon = () => <i className="ph ph-image" />;
+
+        const CategoryIcon = ({ category }) => {
+            const cat = category ? category.toLowerCase() : 'general';
+            if (cat.includes('music')) return <MusicNoteIcon />;
+            if (cat.includes('book')) return <BookIcon />;
+            if (cat.includes('movie') || cat.includes('film')) return <FilmStripIcon />;
+            if (cat.includes('game')) return <GameControllerIcon />;
+            if (cat.includes('food') || cat.includes('eat')) return <ForkKnifeIcon />;
+            if (cat.includes('place') || cat.includes('travel') || cat.includes('trip')) return <MapPinIcon />;
+            return <ListIcon />;
+        };
 
         // --- Brand Logo ---
         const CuratorLogo = () => (
@@ -958,10 +975,7 @@
                                             onClick={() => setActiveListId(list.id)}
                                         >
                                             <div className="card-preview">
-                                                {list.category === 'music' && <MusicNoteIcon />}
-                                                {list.category === 'books' && <BookIcon />}
-                                                {list.category === 'movies' && <FilmStripIcon />}
-                                                {list.category === 'other' && <ListIcon />}
+                                                <CategoryIcon category={list.category} />
                                             </div>
 
                                             <div className="card-content-wrapper">
