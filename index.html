@@ -951,47 +951,25 @@
                                     <p>Organize your life's collections. Select a list or start something new.</p>
                                 </header>
                                 <div className="dashboard-grid">
-                                    {lists.map(list => {
-                                        let coverImage;
-                                        switch (list.category) {
-                                            case 'music':
-                                                coverImage = 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop'; // Headphones (Yellow)
-                                                break;
-                                            case 'movie':
-                                            case 'movies':
-                                                coverImage = './assets/clapperboard.png'; // Generated Custom Asset
-                                                break;
-                                            case 'book':
-                                            case 'books':
-                                                coverImage = './assets/books.png'; // Generated Custom Asset
-                                                break;
-                                            default:
-                                                coverImage = 'https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=800&auto=format&fit=crop'; // Notes (Yellow)
-                                        }
-
-                                        return (
-                                            <div
-                                                key={list.id}
-                                                className="dashboard-card"
-                                                onClick={() => setActiveListId(list.id)}
-                                            >
-                                                <div className="card-preview" style={{ backgroundImage: `url(${coverImage})` }}>
-                                                    <div className="card-overlay" />
-                                                </div>
-
-                                                <div className="card-content-wrapper">
-                                                    <div className="card-icon-small">
-                                                        {list.category === 'music' && <MusicNoteIcon />}
-                                                        {list.category === 'books' && <BookIcon />}
-                                                        {list.category === 'movies' && <FilmStripIcon />}
-                                                        {list.category === 'other' && <ListIcon />}
-                                                    </div>
-                                                    <h3>{list.title}</h3>
-                                                    <div className="card-meta">{list.items.length} Items</div>
-                                                </div>
+                                    {lists.map(list => (
+                                        <div
+                                            key={list.id}
+                                            className="dashboard-card"
+                                            onClick={() => setActiveListId(list.id)}
+                                        >
+                                            <div className="card-preview">
+                                                {list.category === 'music' && <MusicNoteIcon />}
+                                                {list.category === 'books' && <BookIcon />}
+                                                {list.category === 'movies' && <FilmStripIcon />}
+                                                {list.category === 'other' && <ListIcon />}
                                             </div>
-                                        );
-                                    })}
+
+                                            <div className="card-content-wrapper">
+                                                <h3>{list.title}</h3>
+                                                <div className="card-meta">{list.items.length} Items</div>
+                                            </div>
+                                        </div>
+                                    ))}
                                     <div className="dashboard-card new-list-card" onClick={handleAddList}>
                                         <div className="card-icon"><PlusIcon /></div>
                                         <h3>New Collection</h3>
