@@ -129,6 +129,7 @@
             const [richData, setRichData] = useState({ title: '', image: '', year: '', creator: '', subtitle: '' });
             const [searchResults, setSearchResults] = useState([]);
             const [isSearching, setIsSearching] = useState(false);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
             // Bulk Import State
             const [isImporting, setIsImporting] = useState(false);
@@ -913,20 +914,25 @@
             };
 
             return (
-                <div className="app-shell">
+                <div className={`app-shell ${mobileMenuOpen ? 'mobile-menu-active' : ''}`}>
                     {/* Sidebar */}
-                    <nav className="sidebar glass-panel">
+                    <nav className={`sidebar glass-panel ${mobileMenuOpen ? 'mobile-open' : ''}`}>
                         <div className="sidebar-header">
                             <div className="brand-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 <CuratorLogo />
                                 <h2>Curator</h2>
                             </div>
-                            <button className="icon-btn" onClick={handleAddList}><PlusIcon /></button>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <button className="icon-btn" onClick={handleAddList}><PlusIcon /></button>
+                                <button className="icon-btn mobile-only" onClick={() => setMobileMenuOpen(false)}>
+                                    <XIcon />
+                                </button>
+                            </div>
                         </div>
                         <ul className="nav-lists">
                             <li
                                 className={`nav-item ${activeListId === null ? 'active' : ''}`}
-                                onClick={() => setActiveListId(null)}
+                                onClick={() => { setActiveListId(null); setMobileMenuOpen(false); }}
                             >
                                 <i className="ph ph-house" style={{ fontSize: 20 }} />
                                 <span style={{ flex: 1 }}>Home</span>
@@ -935,9 +941,9 @@
                                 <li
                                     key={list.id}
                                     className={`nav-item ${list.id === activeListId ? 'active' : ''}`}
-                                    onClick={() => setActiveListId(list.id)}
+                                    onClick={() => { setActiveListId(list.id); setMobileMenuOpen(false); }}
                                 >
-                                    <ListIcon />
+                                    <CategoryIcon category={list.category} />
                                     <span style={{ flex: 1 }}>{list.title}</span>
                                     <button
                                         className="sidebar-delete-btn"
@@ -955,41 +961,51 @@
                     <main className="main-content">
                         {!activeList ? (
                             /* --- DASHBOARD VIEW --- */
-                            <div className="dashboard-view">
-                                <header className="dashboard-intro">
-                                    <div className="dashboard-logo-large">
-                                        <CuratorLogo />
-                                    </div>
-                                    <h1>Welcome to Curator</h1>
-                                    <p>Organize your life's collections. Select a list or start something new.</p>
-                                </header>
-                                <div className="dashboard-grid">
-                                    {lists.map(list => (
-                                        <div
-                                            key={list.id}
-                                            className="dashboard-card"
-                                            onClick={() => setActiveListId(list.id)}
-                                        >
-                                            <div className="card-preview">
-                                                <CategoryIcon category={list.category} />
-                                            </div>
-
-                                            <div className="card-content-wrapper">
-                                                <h3>{list.title}</h3>
-                                                <div className="card-meta">{list.items.length} Items</div>
-                                            </div>
+                            <>
+                                <div className="dashboard-header-mobile mobile-only">
+                                    <button className="icon-btn" onClick={() => setMobileMenuOpen(true)}>
+                                        <i className="ph ph-list" style={{ fontSize: 24 }} />
+                                    </button>
+                                </div>
+                                <div className="dashboard-view">
+                                    <header className="dashboard-intro">
+                                        <div className="dashboard-logo-large">
+                                            <CuratorLogo />
                                         </div>
-                                    ))}
-                                    <div className="dashboard-card new-list-card" onClick={handleAddList}>
-                                        <div className="card-icon"><PlusIcon /></div>
-                                        <h3>New Collection</h3>
+                                        <h1>Welcome to Curator</h1>
+                                        <p>Organize your life's collections. Select a list or start something new.</p>
+                                    </header>
+                                    <div className="dashboard-grid">
+                                        {lists.map(list => (
+                                            <div
+                                                key={list.id}
+                                                className="dashboard-card"
+                                                onClick={() => setActiveListId(list.id)}
+                                            >
+                                                <div className="card-preview">
+                                                    <CategoryIcon category={list.category} />
+                                                </div>
+
+                                                <div className="card-content-wrapper">
+                                                    <h3>{list.title}</h3>
+                                                    <div className="card-meta">{list.items.length} Items</div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div className="dashboard-card new-list-card" onClick={handleAddList}>
+                                            <div className="card-icon"><PlusIcon /></div>
+                                            <h3>New Collection</h3>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </>
                         ) : (
                             /* --- LIST VIEW --- */
                             <>
                                 <header>
+                                    <button className="icon-btn mobile-only" onClick={() => setMobileMenuOpen(true)} style={{ marginRight: '12px' }}>
+                                        <i className="ph ph-list" style={{ fontSize: 24 }} />
+                                    </button>
                                     {isEditingTitle ? (
                                         <input
                                             type="text"
